@@ -20,4 +20,4 @@ jobs:
         sudo apt-get -y install libcunit1 libcunit1-doc libcunit1-dev 
     - name: valgrind check
       run: |
-        valgrind Simple_Calculator-main/a.out
+        valgrind chmod 777 Simple_Calculator-main/a.out
