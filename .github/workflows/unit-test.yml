@@ -1,21 +1,27 @@
-name: Unit-Test
+name: Unit Testing
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
+
     steps:
     - name: Install cmake
       run: sudo apt-get install cmake
-    - name: Install gtest manually
+    - name: Install C Unit
       run: sudo apt-get install libgtest-dev && cd /usr/src/gtest && sudo cmake CMakeLists.txt && sudo make && sudo cp *.a /usr/lib && sudo ln -s /usr/lib/libgtest.a /usr/local/lib/libgtest.a && sudo ln -s /usr/lib/libgtest_main.a /usr/local/lib/libgtest_main.a
-    - uses: actions/checkout@v1
-    - name: configure
-      run: mkdir build && cd build && cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-Werror" ..
-    - name: Unit Testing
-      run: cd build && make
+    - uses: actions/checkout@v2
+    
+      
+    - name: make all
+      run:  make -C Simple_Calculator-main/
+    - name: Change mode
+      run: cd Simple_Calculator-main && chmod a+x a.out
+    - name: unit test
+      run: cd Simple_Calculator-main && ./a.out
